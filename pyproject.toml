@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "learn-langchain-from-scratch"
+version = "0.1.0"
+description = "Step by step learn langchain from scratch with examples"
+authors = ["Rijal Ghodi <rijalghodi10@gmail.com>"]
+readme = "README.md"
+packages = [
+    { include = "app" },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10.0,<4.0"
+uvicorn = "^0.23.2"
+langserve = {extras = ["server"], version = ">=0.0.30"}
+pydantic = ">2"
+langchain-openai = "^0.1.8"
+python-dotenv = "^1.0.1"
+langchain = "^0.2.1"
+langchain-community = "^0.2.1"
+langchain-anthropic = "^0.1.15"
+langchain-google-genai = "^1.0.5"
+langchain-google-firestore = "^0.3.0"
+langchain-fireworks = "^0.1.7"
+firestore = "^0.0.8"
+chromadb = "^0.5.0"
+tiktoken = "^0.7.0"
+sentence-transformers = "^3.0.0"
+bs4 = "^0.0.2"
+firecrawl-py = "^0.0.13"
+langchainhub = "^0.1.18"
+wikipedia = "^1.4.0"
+tavily-python = "^0.3.3"
+ipykernel = "^6.29.5"
+
+[tool.poetry.group.dev.dependencies]
+langchain-cli = ">=0.0.15"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
