@@ -1,5 +1,5 @@
 """
-Translator
+Basic Chains
 
 In this script, we create a CLI app that receive an input user 
 to translete into language user chose
