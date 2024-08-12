@@ -33,6 +33,7 @@ tavily-python = "^0.3.3"
 ipykernel = "^6.29.5"
 langchain-chroma = "^0.1.2"
 langchain-pinecone = "^0.1.3"
+pypdf = "^4.3.1"
 
 [tool.poetry.group.dev.dependencies]
 langchain-cli = ">=0.0.15"

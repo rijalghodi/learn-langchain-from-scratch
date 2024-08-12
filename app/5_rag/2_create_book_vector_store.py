@@ -7,10 +7,10 @@ from langchain_openai import OpenAIEmbeddings
 
 # Define the directory containing the text file and the persistent directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
-file_path = os.path.join(current_dir, "books", "moby_dick.txt")
+file_path = os.path.join(current_dir, "books", "romeo_and_juliet.txt")
 persistent_directory = os.path.join(current_dir, "book-db")
 
-# Check if the Chroma vector store already exists
+# Check if the Chroma vector store already exists    
 if not os.path.exists(persistent_directory):
     print("Persistent directory does not exist. Initializing vector store...")
 
@@ -43,7 +43,7 @@ if not os.path.exists(persistent_directory):
     # Create the vector store and persist it automatically
     print("\n--- Creating vector store ---")
     db = Chroma.from_documents(
-        docs, embeddings, persist_directory=persistent_directory)
+        docs, embeddings, persist_directory=persistent_directory, collection_name='romeo_and_juliet')
     print("\n--- Finished creating vector store ---")
 
 else:
