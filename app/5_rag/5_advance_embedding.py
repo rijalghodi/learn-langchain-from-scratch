@@ -8,7 +8,7 @@ from langchain_openai import OpenAIEmbeddings
 
 # Define the directory containing the text file and the persistent directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
-file_path = os.path.join(current_dir, "books", "sangkuriang.txt")
+file_path = os.path.join(current_dir, "sources", "sangkuriang.txt")
 db_dir = os.path.join(current_dir, "db")
 
 # Check if the text file exists

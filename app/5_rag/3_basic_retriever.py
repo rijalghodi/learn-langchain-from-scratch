@@ -12,7 +12,7 @@ from langchain_core.runnables import RunnablePassthrough
 # Define the directory containing the text file and the persistent directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
 db_dir = os.path.join(current_dir, "db")
-file_path = os.path.join(current_dir, "books", "romeo_and_juliet.txt")
+file_path = os.path.join(current_dir, "sources", "romeo_and_juliet.txt")
 
 # Create embeddings
 embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
