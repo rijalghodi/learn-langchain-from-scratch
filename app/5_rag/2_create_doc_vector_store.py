@@ -1,14 +1,12 @@
 import os
 from typing import List
+
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.document_loaders import TextLoader
-from langchain_chroma import Chroma
-from langchain_openai import OpenAIEmbeddings, ChatOpenAI
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.runnables import RunnablePassthrough
+from langchain_community.vectorstores import Chroma
+from langchain_openai import OpenAIEmbeddings
 from langchain_core.documents import Document
 from langchain_core.embeddings import Embeddings
-
 
 # DEFINE FUNCTION TO GET AND INIT VECTOR STORE 
 def init_vector_store(docs: List[Document], embedding: Embeddings, persist_directory: str = None) -> None:
@@ -28,11 +26,10 @@ def init_vector_store(docs: List[Document], embedding: Embeddings, persist_direc
         db = Chroma(persist_directory=persist_directory, embedding_function=embedding)
         return db
 
-
 # Define the directory containing the text file and the persistent directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
-db_dir = os.path.join(current_dir, "db", "sangkuriang_db")
-file_path = os.path.join(current_dir, "sources", "sangkuriang.txt")
+file_path = os.path.join(current_dir, "sources", "romeo_and_juliet.txt")
+persist_directory = os.path.join(current_dir, "book-db")
 
 # Ensure the text file exists
 if not os.path.exists(file_path):
@@ -41,46 +38,24 @@ if not os.path.exists(file_path):
     )
 
 # Read the text content from the file
-loader = TextLoader(file_path, encoding='utf-8')
+loader = TextLoader(file_path)
 documents = loader.load()
 
 # Split the document into chunks
-text_splitter = CharacterTextSplitter(chunk_size=250, chunk_overlap=20)
+text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=50)
 docs = text_splitter.split_documents(documents)
 
 # Create embeddings
-embedding = OpenAIEmbeddings(model="text-embedding-3-small")
+print("\n--- Creating embeddings ---")
+embedding = OpenAIEmbeddings(
+    model="text-embedding-3-small"
+)  # Update to a valid embedding model if needed
+print("\n--- Finished creating embeddings ---")
 
-# Create the vector store and persist it automatically
-db = init_vector_store(docs, embedding, db_dir)
+# Display information about the split documents
+print("\n--- Document Chunks Information ---")
+print(f"Number of document chunks: {len(docs)}")
+print(f"Sample chunk:\n{docs[0].page_content}\n")
 
-###### END CREATE VECTOR STORE ######
-
-###### START CREATE CHAIN AND RETRIEVER ######
-
-retriever = db.as_retriever(
-    search_type="similarity", # alternatives: mmr, similarity_score_threshold
-    search_kwargs={"k": 1},
-)
-
-model = ChatOpenAI(model="gpt-3.5-turbo")
-
-message = """
-Answer this question using the provided context only.
-
-{question}
-
-Context:
-{context}
-"""
-
-prompt = ChatPromptTemplate.from_messages([("human", message)])
-
-rag_chain = {"context": retriever, "question": RunnablePassthrough()} | prompt | model
-
-response = rag_chain.invoke("Why Sangkuriang kick the boat?")
-
-print(response.content)
-###### END CHAIN AND RETRIEVER ######
-
-
+# Create vector store
+vector_store = init_vector_store(docs, embedding, persist_directory)

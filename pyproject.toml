@@ -4,9 +4,6 @@ version = "0.1.0"
 description = "Step by step learn langchain from scratch with examples"
 authors = ["Rijal Ghodi <rijalghodi10@gmail.com>"]
 readme = "README.md"
-packages = [
-    { include = "app" },
-]
 
 [tool.poetry.dependencies]
 python = ">=3.10.0,<3.13"
