@@ -84,6 +84,22 @@ def main():
     global rag_chain
     rag_chain = create_rag_chain(persist_dir, file_path)
     
+    # Chat Loop to interact with the user
+    while True:
+        user_input = input("User: ")
+        if user_input.lower() == "exit":
+            break
+
+        # Add the user's message to the conversation memory
+        memory.chat_memory.add_message(HumanMessage(content=user_input))
+
+        # Invoke the agent with the user input and the current chat history
+        response = agent_executor.invoke({"input": user_input})
+        print("Bot:", response["output"])
+
+        # Add the agent's response to the conversation memory
+        memory.chat_memory.add_message(AIMessage(content=response["output"]))
+    
     conversation = Conversation(ask_with_session=ask_with_session, 
                                 welcome_text="--- Welcome to Romeo and Juliet Bot QA app ---",
                                 human_alias='Question',
