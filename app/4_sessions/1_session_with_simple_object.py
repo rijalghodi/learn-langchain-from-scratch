@@ -1,15 +1,15 @@
+import os
+import sys
+from dotenv import load_dotenv
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage, SystemMessage
+
 """
 Conversation Input
 
 Model input can be form of list containing conversation
 between system, human, and AI as show below
 """
-
-import os
-import sys
-from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
-from langchain_core.messages import HumanMessage, SystemMessage
 
 # Load environment variables from .env
 load_dotenv()

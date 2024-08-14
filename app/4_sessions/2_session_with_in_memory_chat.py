@@ -2,8 +2,6 @@
 from typing import List
 
 from dotenv import load_dotenv
-import os
-import sys
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -14,8 +12,7 @@ from langchain_core.chat_history import (
 from langchain_core.runnables.history import RunnableWithMessageHistory
 
 # We will use Conversation class
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from utils.conversation import Conversation
+from app.utils.conversation import Conversation
 
 load_dotenv()
 
