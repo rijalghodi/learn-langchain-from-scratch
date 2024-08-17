@@ -1,4 +1,4 @@
-# Learn LangGraph from Scratch
+# Learn LangChain from Scratch
 
 ## How to Install Packages
 
